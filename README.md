@@ -2,7 +2,7 @@
 
 This repository is part of the [General Services Administration](http://gsa.gov)
 organization in GitHub and is being used to provide an example implementation of
-the GSA Readily Available Computing Environment (GRADE) Platform.
+the GSA Readily Available Computing Environment (GRACE) Platform.
 
 ## Repository contents
 
