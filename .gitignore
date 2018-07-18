@@ -14,3 +14,5 @@ secrets.yml
 *.tfstate*
 # Module directory
 .terraform/
+#Unencrypted secret environment
+secret-env-plain
