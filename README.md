@@ -6,7 +6,7 @@ the GSA Readily Available Computing Environment (GRACE) Platform.
 
 ## Repository contents
 
-none
+- [Terraform](terraform/README.md)
 
 ## Public domain
 
