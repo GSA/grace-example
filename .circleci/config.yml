@@ -1,0 +1,46 @@
+version: 2
+jobs:
+  validate:
+    docker:
+      - image: hashicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: Decrypt environment variables
+          command: openssl aes-256-cbc -d -in secret-env-cipher -out secret-env-plain $KEY
+          working_directory: ~/project/terraform/bootstrap
+      - run:
+          name: Validate terraform
+          command: |
+            source terraform/bootstrap/secret-env-plain
+            make validate
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./*
+
+  deploy_example:
+    docker:
+      - image: hashicorp/terraform:light
+    steps:
+      - attach_workspace:
+          at: .
+
+      - run:
+          name: Deploy the full example
+          command: |
+            source terraform/bootstrap/secret-env-plain
+            make deploy
+
+workflows:
+  version: 2
+
+  validate_and_deploy:
+    jobs:
+      - validate
+      - deploy_example:
+          filters:
+            branches:
+              only: master
+          requires:
+            - validate
