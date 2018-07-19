@@ -15,6 +15,7 @@ jobs:
           name: Validate terraform
           command: |
             source terraform/bootstrap/secret-env-plain
+            apk add --update make
             make validate
       - persist_to_workspace:
           root: .
