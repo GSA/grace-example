@@ -9,7 +9,7 @@ jobs:
           name: Decrypt environment variables
           command: |
             apk add --update openssl
-            openssl aes-256-cbc -d -in secret-env-cipher -out secret-env-plain $KEY
+            openssl aes-256-cbc -d -in secret-env-cipher -out secret-env-plain -k $KEY
           working_directory: ~/project/terraform/bootstrap
       - run:
           name: Validate terraform
