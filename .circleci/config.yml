@@ -33,6 +33,7 @@ jobs:
           name: Deploy the full example
           command: |
             source terraform/bootstrap/secret-env-plain
+            apk add --update make
             make deploy
 
 workflows:
