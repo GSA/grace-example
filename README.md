@@ -1,4 +1,4 @@
-# GSA Readily Available Computing Environment (GRACE) Example
+# GSA Readily Available Computing Environment (GRACE) Example [![CircleCI](https://circleci.com/gh/GSA/grace-example.svg?style=svg)](https://circleci.com/gh/GSA/grace-example)
 
 This repository is part of the [General Services Administration](http://gsa.gov)
 organization in GitHub and is being used to provide an example implementation of
