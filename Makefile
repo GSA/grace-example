@@ -8,6 +8,10 @@ validate:
 	  terraform init -backend-config=bucket=$(TF_ENV_BUCKET) && \
 	  terraform validate && \
 		terraform plan
+	cd terraform/networking && \
+	  terraform init -backend-config=bucket=$(TF_ENV_BUCKET) && \
+	  terraform validate && \
+		terraform plan
 
 bootstrap:
 	cd terraform/bootstrap && \
