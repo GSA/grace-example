@@ -17,7 +17,7 @@ resource "aws_iam_role" "env_deployer" {
   {
     "Action": "sts:AssumeRole",
     "Principal": {
-      "Service": "ec2.amazonaws.com"
+      "AWS": "arn:aws:iam::${var.mgmt_account_id}:user/circle-mgmt-deployer"
     },
     "Effect": "Allow",
     "Sid": ""
