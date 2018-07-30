@@ -12,8 +12,8 @@ module "vpc_mgmt" {
   enable_dns_support   = true
   enable_nat_gateway   = false
   name                 = "MGMT-devsecops-networking-test"
-  public_subnets       = ["${cidrsubnet(var.mgmt_cidr, 8, 1)}", "${cidrsubnet(var.mgmt_cidr, 8, 2)}"]
-  private_subnets      = ["${cidrsubnet(var.mgmt_cidr, 8, 3)}", "${cidrsubnet(var.mgmt_cidr, 8, 4)}"]
+  public_subnets       = ["${cidrsubnet(var.mgmt_cidr, 2, 0)}", "${cidrsubnet(var.mgmt_cidr, 2, 1)}"]
+  private_subnets      = ["${cidrsubnet(var.mgmt_cidr, 2, 2)}", "${cidrsubnet(var.mgmt_cidr, 2, 3)}"]
 
   tags = {
     Terraform   = "true"
@@ -39,9 +39,7 @@ resource "aws_security_group" "mgmt_ec2_management_sg" {
   name        = "${var.vpc_mgmt_ec2_management_sg_name}"
   description = "Tenant Security Group for managing instances"
 
-  providers = {
-    aws = "aws.mgmt"
-  }
+  provider = "aws.mgmt"
 
   vpc_id = "${module.vpc_mgmt.vpc_id}"
 
@@ -73,9 +71,7 @@ resource "aws_security_group" "mgmt_ec2_egress_on_prem" {
   name        = "${var.vpc_mgmt_ec2_egress_on_prem_sg_name}"
   description = "Tenant security group for egress to on-prem"
 
-  providers = {
-    aws = "aws.mgmt"
-  }
+  provider = "aws.mgmt"
 
   vpc_id = "${module.vpc_mgmt.vpc_id}"
 
@@ -101,11 +97,9 @@ resource "aws_network_acl" "mgmt_private_nacl" {
   count = "${var.vpc_mgmt_set_default_private_nacl == "true" ? 1 : 0}"
 
   vpc_id     = "${module.vpc_mgmt.vpc_id}"
-  subnet_ids = "${module.vpc_mgmt.private_subnets}"
+  subnet_ids = ["${module.vpc_mgmt.private_subnets}"]
 
-  providers = {
-    aws = "aws.mgmt"
-  }
+  provider = "aws.mgmt"
 
   ingress {
     protocol   = "-1"

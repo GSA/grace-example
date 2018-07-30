@@ -16,8 +16,8 @@ env accounts with sufficient privileges to create IAM users and roles.
 
     ```
     export AWS_DEFAULT_REGION=us-east-1
-    export TF_VAR_mgmt_acct_id=111111111111
-    export TF_VAR_env_acct_id=111111111111
+    export TF_VAR_mgmt_account_id=111111111111
+    export TF_VAR_env_account_id=111111111111
     ```
 
 1. Bootstrap the repository with CircleCI IAM user for CirceCI deployer with

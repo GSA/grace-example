@@ -2,7 +2,7 @@ provider "aws" {
   alias = "mgmt"
 
   assume_role {
-    role_arn = "arn:aws:iam::${var.mgmt_acct_id}:role/${var.iam_role_name}"
+    role_arn = "arn:aws:iam::${var.mgmt_account_id}:role/${var.iam_role_name}"
   }
 }
 
