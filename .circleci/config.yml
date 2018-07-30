@@ -6,16 +6,20 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install openssl and make
+          command: apk add --update openssl make
+      - run:
           name: Decrypt environment variables
-          command: |
-            apk add --update openssl
-            openssl aes-256-cbc -d -in secret-env-cipher -out secret-env-plain -k $KEY
+          command: openssl aes-256-cbc -d -in secret-env-cipher -out secret-env-plain -k $KEY
           working_directory: ~/project/terraform/bootstrap
+      - run:
+          name: Decrypt network tfvars
+          command: openssl aes-256-cbc -d -in secret-tfvars-cipher -out terraform.tfvars -k $KEY
+          working_directory: ~/project/terraform/networking
       - run:
           name: Validate terraform
           command: |
             source terraform/bootstrap/secret-env-plain
-            apk add --update make
             make validate
       - persist_to_workspace:
           root: .
@@ -30,10 +34,12 @@ jobs:
           at: .
 
       - run:
+          name: Install make
+          command: apk add --update make
+      - run:
           name: Deploy the full example
           command: |
             source terraform/bootstrap/secret-env-plain
-            apk add --update make
             make deploy
 
 workflows:

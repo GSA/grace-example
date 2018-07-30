@@ -29,3 +29,6 @@ deploy:
 	cd terraform/master && \
 	  terraform init -backend-config=bucket=$(TF_ENV_BUCKET) && \
 		terraform apply -input=false -auto-approve
+	cd terraform/networking && \
+	  terraform init -backend-config=bucket=$(TF_ENV_BUCKET) && \
+		terraform apply -input=false -auto-approve
