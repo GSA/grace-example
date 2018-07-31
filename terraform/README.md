@@ -5,6 +5,11 @@
 Contains the terraform configuration to bootstrap this example in a GRACE tenant
 account.
 
+## Networking
+
+Contains the terraform configuration for a mgmt vpc and an env vpc each with
+two public and two private subnets.
+
 1. *fork the repository*
 Since CircleCI will deploy to your environment, you will need to fork this
 repository to set the CircleCI environment to deploy to your tenant accounts.
