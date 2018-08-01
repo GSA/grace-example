@@ -10,6 +10,7 @@ secrets.yml
 
 ## Terraform ##
 *.tfvars
+!backend.tfvars
 # Compiled files
 *.tfstate*
 # Module directory
