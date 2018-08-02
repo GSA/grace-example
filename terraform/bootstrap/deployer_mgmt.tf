@@ -35,7 +35,7 @@ resource "aws_iam_user_policy" "mgmt_deployer_org" {
   "Statement": [
     {
       "Action": [
-        "organizations:*"
+        "sts:AssumeRole"
       ],
       "Effect": "Allow",
       "Resource": "*"
