@@ -1,0 +1,29 @@
+{
+  "variables": {
+    "owners": "{{env `TF_VAR_shared_services_account_id`}}",
+    "region": "{{env `AWS_DEFAULT_REGION`}}",
+    "ssh_username": "ubuntu"
+  },
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "../ansible/jumphost.yml",
+      "extra_arguments": [],
+      "user": "{{user `ssh_username`}}"
+    }
+  ],
+  "builders": [{
+    "type": "amazon-ebs",
+    "region": "{{user `region`}}",
+    "source_ami_filter": {
+      "filters": {
+        "name": "ubuntu16-base-*"
+      },
+      "owners": ["{{user `owners`}}"],
+      "most_recent": true
+    },
+    "instance_type": "t2.small",
+    "ssh_username": "{{user `ssh_username`}}",
+    "ami_name": "jumphost {{timestamp}}"
+  }]
+}
