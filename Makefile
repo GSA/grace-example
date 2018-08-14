@@ -12,6 +12,7 @@ validate:
 	  terraform init -backend-config=backend.tfvars && \
 	  terraform validate && \
 		terraform plan
+	packer validate -syntax-only packer/jumphost.json
 
 bootstrap:
 	cd terraform/bootstrap && \
@@ -31,6 +32,8 @@ bootstrap:
 	echo 'key = "networking.tfstate"' >> terraform/networking/backend.tfvars
 
 deploy:
+	cd packer && \
+		packer build jumphost.json
 	cd terraform/master && \
 	  terraform init -backend-config=backend.tfvars && \
 		terraform apply -auto-approve

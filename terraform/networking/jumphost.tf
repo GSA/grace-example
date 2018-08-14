@@ -1,8 +1,3 @@
-variable "deployer_public_key_path" {
-  default     = ""
-  description = "Path to a public key to use for deployment. Defaults to the public key checked into the repository."
-}
-
 resource "aws_key_pair" "deployer" {
   key_name_prefix = "deployer-key"
   public_key      = "${var.deployer_public_key_path == "" ? file("${path.module}/files/deployer.pub") : var.deployer_public_key_path}"
@@ -30,9 +25,10 @@ resource "aws_cloudformation_stack" "jumphost" {
     VPCID               = "${module.vpc_mgmt.vpc_id}"
     PublicSubnet1ID     = "${module.vpc_mgmt.public_subnets[0]}"
     PublicSubnet2ID     = "${module.vpc_mgmt.public_subnets[1]}"
-    RemoteAccessCIDR    = "0.0.0.0/0"
+    RemoteAccessCIDR    = "${var.jumphost_remote_access_cidr}"
     KeyPairName         = "${aws_key_pair.deployer.key_name}"
-    BastionInstanceType = "t2.small"
+    BastionInstanceType = "${var.jumphost_instance_type}"
     OSImageOverride     = "${data.aws_ami.jumphost.image_id}"
+    NumBastionHosts     = "${var.num_jumphosts}"
   }
 }

@@ -7,6 +7,8 @@ the GSA Readily Available Computing Environment (GRACE) Platform.
 ## Repository contents
 
 - [Terraform](terraform/README.md)
+- [Packer](packer/README.md)
+- [Ansible](ansible/README.md)
 
 ## Public domain
 
