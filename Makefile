@@ -3,14 +3,17 @@ default: validate
 validate:
 	cd terraform/bootstrap && \
 	  terraform init && \
-	  terraform validate
+	  terraform validate && \
+		terrascan --location .
 	cd terraform/master && \
 	  terraform init -backend-config=backend.tfvars && \
 	  terraform validate && \
+		terrascan --location . && \
 		terraform plan
 	cd terraform/networking && \
 	  terraform init -backend-config=backend.tfvars && \
 	  terraform validate && \
+		terrascan --location . && \
 		terraform plan
 	packer validate -syntax-only packer/jumphost.json
 

@@ -6,8 +6,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install openssl make sudo and unzip
-          command: apk add --update openssl make sudo unzip
+          name: Install make openssl python-pip sudo and unzip
+          command: apk add --update make openssl python-pip sudo unzip
       - run:
           name: Install Packer
           command: |
@@ -15,6 +15,9 @@ jobs:
             unzip packer_1.2.5_linux_amd64.zip
             sudo mv packer /usr/local/bin/packer
           working_directory: /tmp
+      - run:
+          name: Install terrascan
+          command: pip install terrascan
       - run:
           name: Decrypt environment variables
           command: openssl aes-256-cbc -d -in secret-env-cipher -out secret-env-plain -k $KEY
@@ -40,8 +43,8 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Install make sudo and unzip
-          command: apk add --update make sudo unzip
+          name: Install make python-pip sudo and unzip
+          command: apk add --update make python-pip sudo unzip
       - run:
           name: Install Packer
           command: |
@@ -49,6 +52,9 @@ jobs:
             unzip packer_1.2.5_linux_amd64.zip
             sudo mv packer /usr/local/bin/packer
           working_directory: /tmp
+      - run:
+          name: Install terrascan
+          command: pip install terrascan
       - run:
           name: Deploy the full example
           command: |
