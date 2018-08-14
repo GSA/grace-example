@@ -26,15 +26,12 @@ jobs:
           name: Install terrascan
           command: pip install --upgrade --user terrascan
       - run:
-          name: OpenSSL version
-          command: openssl version
-      - run:
           name: Decrypt environment variables
           command: openssl aes-256-cbc -d -md md5 -in secret-env-cipher -out secret-env-plain -k $KEY
           working_directory: ~/project/terraform/bootstrap
       - run:
           name: Decrypt network tfvars
-          command: openssl aes-256-cbc -d -in secret-tfvars-cipher -out terraform.tfvars -k $KEY
+          command: openssl aes-256-cbc -d -md md5 -in secret-tfvars-cipher -out terraform.tfvars -k $KEY
           working_directory: ~/project/terraform/networking
       - run:
           name: Validate terraform
