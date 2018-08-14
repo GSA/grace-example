@@ -2,12 +2,15 @@ version: 2
 jobs:
   validate:
     docker:
-      - image: 18fgsa/devsecops-builder:alpine
+      - image: circleci/python
     steps:
       - checkout
       - run:
           name: Upgrade pip
           command: pip install --upgrade pip
+      - run:
+          name: Install terraform
+          command: pip install --upgrade terraform
       - run:
           name: Install terrascan
           command: pip install --upgrade terrascan
