@@ -24,7 +24,7 @@ jobs:
           working_directory: /tmp
       - run:
           name: Install terrascan
-          command: pip install --upgrade --user terrascan
+          command: sudo pip install --upgrade terrascan
       - run:
           name: Decrypt environment variables
           command: openssl aes-256-cbc -d -md md5 -in secret-env-cipher -out secret-env-plain -k $KEY
