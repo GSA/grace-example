@@ -2,19 +2,9 @@ version: 2
 jobs:
   validate:
     docker:
-      - image: hashicorp/terraform:light
+      - image: 18fgsa/devsecops-builder:alpine
     steps:
       - checkout
-      - run:
-          name: Install make openssl python-pip sudo and unzip
-          command: apk add --update make openssl python-pip sudo unzip
-      - run:
-          name: Install Packer
-          command: |
-            wget https://releases.hashicorp.com/packer/1.2.5/packer_1.2.5_linux_amd64.zip
-            unzip packer_1.2.5_linux_amd64.zip
-            sudo mv packer /usr/local/bin/packer
-          working_directory: /tmp
       - run:
           name: Install terrascan
           command: pip install terrascan
@@ -38,20 +28,10 @@ jobs:
 
   deploy_example:
     docker:
-      - image: hashicorp/terraform:light
+      - image: 18fgsa/devsecops-builder:alpine
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: Install make python-pip sudo and unzip
-          command: apk add --update make python-pip sudo unzip
-      - run:
-          name: Install Packer
-          command: |
-            wget https://releases.hashicorp.com/packer/1.2.5/packer_1.2.5_linux_amd64.zip
-            unzip packer_1.2.5_linux_amd64.zip
-            sudo mv packer /usr/local/bin/packer
-          working_directory: /tmp
       - run:
           name: Install terrascan
           command: pip install terrascan
