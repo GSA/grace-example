@@ -30,7 +30,7 @@ jobs:
           command: openssl version
       - run:
           name: Decrypt environment variables
-          command: openssl aes-256-cbc -d -in secret-env-cipher -out secret-env-plain -k $KEY
+          command: openssl aes-256-cbc -d -md md5 -in secret-env-cipher -out secret-env-plain -k $KEY
           working_directory: ~/project/terraform/bootstrap
       - run:
           name: Decrypt network tfvars
