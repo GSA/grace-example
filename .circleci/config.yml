@@ -11,15 +11,10 @@ jobs:
       - run:
           name: Install Packer
           command: |
-            echo $PATH
-            echo $pwd
-            ls -l
             wget https://releases.hashicorp.com/packer/1.2.5/packer_1.2.5_linux_amd64.zip
-            ls -l
             unzip -f packer_1.2.5_linux_amd64.zip
-            ls -l
-            mv packer /usr/local/packer
-            chmod 755 /usr/local/packer
+            mv packer /usr/local/bin/packer
+          working_directory: /tmp
       - run:
           name: Decrypt environment variables
           command: openssl aes-256-cbc -d -in secret-env-cipher -out secret-env-plain -k $KEY
@@ -50,15 +45,10 @@ jobs:
       - run:
           name: Install Packer
           command: |
-            echo $PATH
-            echo $pwd
-            ls -l
             wget https://releases.hashicorp.com/packer/1.2.5/packer_1.2.5_linux_amd64.zip
-            ls -l
             unzip -f packer_1.2.5_linux_amd64.zip
-            ls -l
-            mv packer /usr/local/packer
-            chmod 755 /usr/local/packer
+            mv packer /usr/local/bin/packer
+          working_directory: /tmp
       - run:
           name: Deploy the full example
           command: |
