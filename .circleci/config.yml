@@ -6,14 +6,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install openssl make sudo and unzip
-          command: apk add --update sudo openssl make unzip
+          name: Install openssl make and unzip
+          command: apk add --update openssl make unzip
       - run:
           name: Install Packer
           command: |
             wget https://releases.hashicorp.com/packer/1.2.5/packer_1.2.5_linux_amd64.zip
             unzip -f packer_1.2.5_linux_amd64.zip
-            sudo mv packer /usr/local
       - run:
           name: Decrypt environment variables
           command: openssl aes-256-cbc -d -in secret-env-cipher -out secret-env-plain -k $KEY
@@ -39,14 +38,13 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Install make sudo and unzip
-          command: apk add --update make sudo unzip
+          name: Install make and unzip
+          command: apk add --update make unzip
       - run:
           name: Install Packer
           command: |
             wget https://releases.hashicorp.com/packer/1.2.5/packer_1.2.5_linux_amd64.zip
             unzip -f packer_1.2.5_linux_amd64.zip
-            sudo mv packer /usr/local
       - run:
           name: Deploy the full example
           command: |
