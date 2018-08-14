@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: Install openssl and make
-          command: apk add --update openssl make
+          command: apk add --update openssl make packer
       - run:
           name: Decrypt environment variables
           command: openssl aes-256-cbc -d -in secret-env-cipher -out secret-env-plain -k $KEY
@@ -35,7 +35,7 @@ jobs:
 
       - run:
           name: Install make
-          command: apk add --update make
+          command: apk add --update make packer
       - run:
           name: Deploy the full example
           command: |
