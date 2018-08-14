@@ -6,8 +6,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install openssl make and unzip
-          command: apk add --update openssl make unzip
+          name: Install openssl make sudo and unzip
+          command: apk add --update sudo openssl make unzip
       - run:
           name: Install Packer
           command: |
@@ -39,8 +39,8 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Install make and unzip
-          command: apk add --update make unzip
+          name: Install make sudo and unzip
+          command: apk add --update make sudo unzip
       - run:
           name: Install Packer
           command: |
