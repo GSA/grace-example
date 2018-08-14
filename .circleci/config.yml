@@ -11,12 +11,8 @@ jobs:
       - run:
           name: Install Packer
           command: |
-            pwd
-            ls -l
             wget https://releases.hashicorp.com/packer/1.2.5/packer_1.2.5_linux_amd64.zip
-            ls -l
             unzip packer_1.2.5_linux_amd64.zip
-            ls -l
             sudo mv packer /usr/local/bin/packer
           working_directory: /tmp
       - run:
