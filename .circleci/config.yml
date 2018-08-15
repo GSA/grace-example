@@ -73,6 +73,10 @@ jobs:
           name: Install Ansible
           command: sudo pip install --upgrade ansible
       - run:
+          name: Install required roles from Ansible Galaxy
+          command: ansible-galaxy install -p ansible/roles -r ansible/requirements.yml
+          working_directory: ~/project
+      - run:
           name: Deploy the full example
           command: |
             source terraform/bootstrap/secret-env-plain
