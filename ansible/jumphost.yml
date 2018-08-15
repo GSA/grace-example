@@ -1,0 +1,42 @@
+---
+- hosts: all
+  become: yes
+  vars:
+
+  pre_tasks:
+    - name: Wait until boot finished
+      wait_for:
+        path: /var/lib/cloud/instance/boot-finished
+        state: present
+    - name: Wait for automatic system updates
+      become: yes
+      shell: while fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;
+    - name: wait 10 seconds
+      wait_for:
+        timeout: 10
+    - name: Update apt/dpkg cache
+      apt:
+        update_cache: yes
+    - name: wait 5 seconds
+      wait_for:
+        timeout: 5
+
+  roles:
+    - role: sansible.users_and_groups
+      sansible_users_and_groups_groups:
+        - name: admins
+          system: no
+        - name: users
+          system: no
+      sansible_users_and_groups_users:
+        - name: bkfitzwater
+          groups:
+            - admins
+            - users
+          system: no
+          ssh_key: ./keys/bkfitzwater.pub
+      sansible_users_and_groups_sudoers:
+        - name: admins
+          user: "%admins"
+          runas: "ALL=(ALL)"
+          commands: "NOPASSWD: ALL"

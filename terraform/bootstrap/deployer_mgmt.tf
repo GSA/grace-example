@@ -35,6 +35,17 @@ resource "aws_iam_user_policy" "mgmt_deployer_org" {
   "Statement": [
     {
       "Action": [
+        "iam:AddRoleToInstanceProfile",
+        "iam:CreateInstanceProfile",
+        "iam:DeleteInstanceProfile",
+        "iam:CreateRole",
+        "iam:DeleteRole",
+        "iam:DeleteRolePolicy",
+        "iam:GetRole",
+        "iam:GetRolePolicy",
+        "iam:PassRole",
+        "iam:PutRolePolicy",
+        "iam:RemoveRoleFromInstanceProfile",
         "sts:AssumeRole"
       ],
       "Effect": "Allow",
